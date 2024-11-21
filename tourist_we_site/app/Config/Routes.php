@@ -10,6 +10,10 @@ $routes->get('/', 'Home::index');
 $routes->get('dashboard', 'Dashboard::index');
 $routes->get('dashboard', 'AnalyticsController::index');
 
+//login
+$routes->get('login', 'Login::view_login');
+$routes->get('sign', 'Sign::view_sign');
+
 // afficher touriste
 $routes->get('/touristes', 'Touriste::index'); // Affiche la liste des touristes via la méthode index
 $routes->get('/touriste', 'Touriste::index'); // Utilise la méthode viewTouriste
