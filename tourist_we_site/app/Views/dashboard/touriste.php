@@ -18,7 +18,7 @@
 <body>
     <main class="table" id="List of Tourists">
         <section class="table__header">
-            <h1>Client's Orders</h1>
+            <h1>Tourist's Orders</h1>
             <div class="input-group">
                 <input type="search" placeholder="Search Data...">
                 <img src="images/search.png" alt="">
@@ -39,18 +39,16 @@
             <table>
                 <thead>
                     <tr>
-                        <th> Id  <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Client  <span class="icon-arrow">&UpArrow;</span></th>
+                    <th> Id  <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Tourist  <span class="icon-arrow">&UpArrow;</span></th>
                         <th> email  <span class="icon-arrow">&UpArrow;</span></th>
                         <th>  Gender<span class="icon-arrow">&UpArrow;</span> </th>
                         <th> Phone <span class="icon-arrow">&UpArrow;</span></th>
                         <th> City <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> PAys <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> nationalite <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> Adress <span class="icon-arrow">&UpArrow;</span></th>
-                      <th>Nationalit</th>
-                      <th></th>
-                      <th></th>
+                        <th> Pays <span class="icon-arrow">&UpArrow;</span></th>
+                       <th> </th>
+                        <th> </th>
+                        <th> </th>
 
                    
                     </tr>
@@ -62,24 +60,22 @@
     <?php foreach ($touristes as $touriste): ?>
         <tr>
             <td><?= esc($touriste['touriste_id']) ?></td>
-            <td><?= esc($touriste['nom']) ?></td>
-            <td><?= esc($touriste['prenom']) ?></td>
+            <td><?= esc($touriste['nom'] . ' ' . $touriste['prenom']) ?></td>
             <td><?= esc($touriste['email']) ?></td>
             <td><?= esc($touriste['sexe']) ?></td>
             <td><?= esc($touriste['telephone']) ?></td>
             <td><?= esc($touriste['ville']) ?></td>
             <td><?= esc($touriste['pays']) ?></td>
-            <td><?= esc($touriste['adresse']) ?></td>
-            <td><?= esc($touriste['nationalite']) ?></td>
-            <td class="ddd">
+          <td class="ddd">
                            
                         
                             <button class="status Edit">
                             <i class="fa-regular fa-pen-to-square"> </i> &nbsp; Edit
                           </button>
-                          <button class="status Delete">
-                            <span class="material-symbols-outlined"> delete </span>  Delete
                           </button>
+<button class="status Delete" onclick="deleteTouriste(<?= esc($touriste['touriste_id']) ?>)">
+    <span class="material-symbols-outlined">delete</span> Delete
+</button>
                         </td>
                      
         </tr>
@@ -95,7 +91,14 @@
      
         <a  href="\dashboard" class=" btn"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;log out</a>
     </main>
- 
+    <script>
+        
+function deleteTouriste(id) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce touriste ?")) {
+        window.location.href = `/touriste/delete/${id}`;
+    }
+}
+</script>
     <script src="js/touriste.js"></script>
 
 </body>

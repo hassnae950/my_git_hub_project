@@ -24,11 +24,13 @@ class CreateTouristeTable extends Migration
                 'constraint' => '30',
                 'null'       => false,
             ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '30',
-                'unique'     => true,
-            ],
+           'email' => [
+    'type'       => 'VARCHAR',
+    'constraint' => '30',
+    'null'       => false, // Make it mandatory (NOT NULL)
+    'unique'     => false, // Remove the unique constraint
+],
+
             'sexe' => [
                 'type'       => 'ENUM',
                 'constraint' => ['Male', 'Female'],

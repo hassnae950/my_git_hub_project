@@ -13,6 +13,11 @@ class TouristeModel extends Model
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = null;
+    protected $validationRules = [
+        'email' => 'required|valid_email', // Make it required but not unique
+    ];
+
+    
     public function countAll()
     {
         return $this->countAllResults();
@@ -35,9 +40,18 @@ class TouristeModel extends Model
 
     public function getNewMembersCountLast24h()
     {
-       
+
     }
 
+    public function delete($id = null, bool $purge = false)
+{
+    // Suppression basée sur l'ID fourni
+    if ($id !== null) {
+        return $this->db->table('touriste')->delete(['touriste_id' => $id]);
+    }
+
+    return false; // Pas d'ID fourni, rien à supprimer
+}
 
 
 

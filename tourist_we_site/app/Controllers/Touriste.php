@@ -25,4 +25,20 @@ class Touriste extends BaseController
     }
 
 
+    public function deleteTouriste($id)
+    {
+        if ($this->touristeModel->delete($id)) {
+            // Ajouter un message de succès
+            session()->setFlashdata('message', 'Touriste supprimé avec succès.');
+        } else {
+            // Ajouter un message d'erreur
+            session()->setFlashdata('error', 'Erreur lors de la suppression du touriste.');
+        }
+
+        // Rediriger vers la page des touristes
+        return redirect()->to('http://localhost:8080/touriste');
+    }
+
+
+
 }
