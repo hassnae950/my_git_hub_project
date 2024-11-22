@@ -65,8 +65,17 @@
             <td><?= esc($guide['experience']) ?></td>
             <td class="ddd">
                <button class="status Edit"> <i class="fa-regular fa-pen-to-square"> </i> &nbsp; Edit</button>
-               <button class="status Delete"><span class="material-symbols-outlined"> delete </span>  Delete</button>
-                        </td>
+               <button class="status Delete" onclick="deleteGuide(<?= esc($guide['id_guide']) ?>)">
+    <span class="material-symbols-outlined">delete</span> Delete
+</button>        </td>
+<script>
+        
+function deleteGuide(id) {
+    if (confirm("Are you sure you want to delete this guid?")) {
+        window.location.href = `/guide/delete/${id}`;
+    }
+}
+</script>
                    
         </tr>
         <?php endforeach; ?>

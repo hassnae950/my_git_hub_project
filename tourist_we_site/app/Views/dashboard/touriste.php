@@ -94,7 +94,7 @@
     <script>
         
 function deleteTouriste(id) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer ce touriste ?")) {
+    if (confirm("Are you sure you want to delete this tourist?")) {
         window.location.href = `/touriste/delete/${id}`;
     }
 }

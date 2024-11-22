@@ -62,18 +62,20 @@
             <td><?= esc($evenement['id']); ?></td>
             <td><?= esc($evenement['nom']); ?></td>
             <td><?= esc($evenement['date']); ?></td>
-            <td><?= esc($evenement['description']); ?></td>
+            
             <td><?= esc($evenement['lieu']); ?></td>
+            <td><?= esc($evenement['description']); ?></td>
             <td><?= esc($evenement['organisateur']); ?></td>
-            <td><?= esc($evenement['capacite']); ?></td>
+            
             <td><?= esc($evenement['status']); ?></td>
+            <td><?= esc($evenement['capacite']); ?></td>
             <td class="ddd">
                 <button class="status Edit">
                     <i class="fa-regular fa-pen-to-square"> </i> &nbsp; Edit
                 </button>
-                <button class="status Delete">
-                    <span class="material-symbols-outlined"> delete </span> Delete
-                </button>
+                <button class="status Delete" onclick="deleteEvent(<?= esc($evenement['id']) ?>)">
+    <span class="material-symbols-outlined">delete</span> Delete
+</button>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -81,6 +83,14 @@
     <tr><td colspan="10">Aucun événement trouvé.</td></tr>
 <?php endif; ?>
 
+<script>
+        
+function deleteEvent(id) {
+    if (confirm("Are you sure you want to delete this event?")) {
+        window.location.href = `/event/delete/${id}`;
+    }
+}
+</script>
         </tbody>
             </table>
 

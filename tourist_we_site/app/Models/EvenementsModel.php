@@ -22,7 +22,15 @@ class EvenementsModel extends Model
     }
 
 
+    public function delete($id = null, bool $purge = false)
+{
+    // Suppression basée sur l'ID fourni
+    if ($id !== null) {
+        return $this->db->table('evenements')->delete(['id' => $id]);
+    }
 
+    return false; // Pas d'ID fourni, rien à supprimer
+}
 
 
 

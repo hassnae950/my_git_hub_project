@@ -15,4 +15,23 @@ class GuideTouristiqueModel extends Model
         return $this->findAll();
     }
 
+
+    public function delete($id = null, bool $purge = false)
+    {
+        // Suppression basée sur l'ID fourni
+        if ($id !== null) {
+            return $this->db->table('GuideTouristique')->delete(['id_guide' => $id]);
+        }
+    
+        return false; // Pas d'ID fourni, rien à supprimer
+    }
+
+
+
+
+
+
+
+
+
 }

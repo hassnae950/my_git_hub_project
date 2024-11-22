@@ -24,4 +24,32 @@ class ReservationsController extends BaseController
     {
         return view('dashboard/dashboard');
     }
+
+
+    public function deleteReservation($id)
+    {
+        if ($this->reservationsModel->delete($id)) {
+            // Ajouter un message de succès
+            session()->setFlashdata('message', 'reservation supprimé avec succès.');
+        } else {
+            // Ajouter un message d'erreur
+            session()->setFlashdata('error', 'Erreur lors de la suppression du reservation.');
+        }
+
+        // Rediriger vers la page des touristes
+        return redirect()->to('http://localhost:8080/reservation');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

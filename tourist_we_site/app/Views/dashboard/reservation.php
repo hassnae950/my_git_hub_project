@@ -68,9 +68,11 @@
             <button class="status Edit">
                 <i class="fa-regular fa-pen-to-square"> </i> &nbsp; Edit
             </button>
-            <button class="status Delete">
-                <span class="material-symbols-outlined"> delete </span> Delete
             </button>
+<button class="status Delete" onclick="deleteReservation(<?= esc($reservation['id']) ?>)">
+    <span class="material-symbols-outlined">delete</span> Delete
+</button>
+                     
         </td>
     </tr>
     <?php endforeach; ?>
@@ -88,7 +90,14 @@
     <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;log out</a>
     
 </main>
- 
+<script>
+        
+        function deleteReservation(id) {
+            if (confirm("Are you sure you want to delete this reservation?")) {
+                window.location.href = `/reservation/delete/${id}`;
+            }
+        }
+        </script>
 <script src="js/reservation.js"></script>
 
 </body>

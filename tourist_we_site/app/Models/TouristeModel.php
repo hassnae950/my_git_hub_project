@@ -17,7 +17,6 @@ class TouristeModel extends Model
         'email' => 'required|valid_email', // Make it required but not unique
     ];
 
-    
     public function countAll()
     {
         return $this->countAllResults();

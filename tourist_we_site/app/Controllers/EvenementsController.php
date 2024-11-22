@@ -22,4 +22,36 @@ class EvenementsController extends BaseController
         // Charger la vue et passer les données
         return view('dashboard/event', $data);
    }
+
+
+   public function deleteEvent($id)
+   {
+       if ($this->evenementModel->delete($id)) {
+           // Ajouter un message de succès
+           session()->setFlashdata('message', 'evenement supprimé avec succès.');
+       } else {
+           // Ajouter un message d'erreur
+           session()->setFlashdata('error', 'Erreur lors de la suppression du touriste.');
+       }
+
+       // Rediriger vers la page des touristes
+       return redirect()->to('http://localhost:8080/event');
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
