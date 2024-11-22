@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <main class="table" id="Guide_table">
+    <main class="table" id="guide_table">
         <section class="table__header">
             <h1>List of guides</h1>
             <div class="input-group">
@@ -29,9 +29,7 @@
                 <div class="export__file-options">
                     <label>Export As &nbsp; &#10140;</label>
                     <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
-                    <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
-                    <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
-                    <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
+                   <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
                 </div>
             </div>
         </section>
@@ -46,9 +44,7 @@
                         <th> City <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Country <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Adress <span class="icon-arrow">&UpArrow;</span></th>
-                      <th> disponibilite <span class="icon-arrow">&UpArrow;</span></th>
-                        <th> experience <span class="icon-arrow">&UpArrow;</span></th>
-                        <th>    </th>
+                      <th>    </th>
                         <th>    </th>
                   
                         <?php if (!empty($guides)): ?>
@@ -61,9 +57,7 @@
             <td><?= esc($guide['ville']) ?></td>
             <td><?= esc($guide['pays']) ?></td>
             <td><?= esc($guide['adresse']) ?></td>
-            <td><?= esc($guide['disponibilite']) ?></td>
-            <td><?= esc($guide['experience']) ?></td>
-            <td class="ddd">
+           <td class="ddd">
                <button class="status Edit"> <i class="fa-regular fa-pen-to-square"> </i> &nbsp; Edit</button>
                <button class="status Delete" onclick="deleteGuide(<?= esc($guide['id_guide']) ?>)">
     <span class="material-symbols-outlined">delete</span> Delete
@@ -95,6 +89,12 @@ function deleteGuide(id) {
     </main>
 
     <script src="js/guide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
 
 </body>
 

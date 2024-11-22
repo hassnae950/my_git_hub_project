@@ -1,19 +1,8 @@
-/**
-Responsive HTML Table With Pure CSS - Web Design/UI Design
-
-Code written by:
-👨🏻‍⚕️ @Coding Design (Jeet Saru)
-
-> You can do whatever you want with the code. However if you love my content, you can **SUBSCRIBED** my YouTube Channel.
-
-🌎link: www.youtube.com/codingdesign 
-*/
-
 const search = document.querySelector('.input-group input'),
     table_rows = document.querySelectorAll('tbody tr'),
     table_headings = document.querySelectorAll('thead th');
 
-// 1. Searching for specific data of HTML table
+// 1. Searching for specific table of HTML table
 search.addEventListener('input', searchTable);
 
 function searchTable() {
@@ -64,14 +53,15 @@ function sortTable(column, sort_asc) {
 // 3. Converting HTML table to PDF
 
 const pdf_btn = document.querySelector('#toPDF');
-const customers_table = document.querySelector('#customers_table');
+const ev_table = document.querySelector('#ev_table');
 
 
-const toPDF = function (customers_table) {
+const toPDF = function (ev_table) {
     const html_code = `
     <!DOCTYPE html>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <main class="table" id="customers_table">${customers_table.innerHTML}</main>`;
+    <link rel="stylesheet" type="text/css" href="css/touriste.css">
+    <main class="table" id="ev_table">
+    ${ev_table.innerHTML}</main>`;
 
     const new_window = window.open();
      new_window.document.write(html_code);
@@ -83,132 +73,77 @@ const toPDF = function (customers_table) {
 }
 
 pdf_btn.onclick = () => {
-    toPDF(customers_table);
+    toPDF(ev_table);
 }
-
-// 4. Converting HTML table to JSON
-
-const json_btn = document.querySelector('#toJSON');
-
-const toJSON = function (table) {
-    let table_data = [],
-        t_head = [],
-
-        t_headings = table.querySelectorAll('th'),
-        t_rows = table.querySelectorAll('tbody tr');
-
-    for (let t_heading of t_headings) {
-        let actual_head = t_heading.textContent.trim().split(' ');
-
-        t_head.push(actual_head.splice(0, actual_head.length - 1).join(' ').toLowerCase());
-    }
-
-    t_rows.forEach(row => {
-        const row_object = {},
-            t_cells = row.querySelectorAll('td');
-
-        t_cells.forEach((t_cell, cell_index) => {
-            const img = t_cell.querySelector('img');
-            if (img) {
-                row_object['customer image'] = decodeURIComponent(img.src);
-            }
-            row_object[t_head[cell_index]] = t_cell.textContent.trim();
-        })
-        table_data.push(row_object);
-    })
-
-    return JSON.stringify(table_data, null, 4);
-}
-
-json_btn.onclick = () => {
-    const json = toJSON(customers_table);
-    downloadFile(json, 'json')
-}
-
-// 5. Converting HTML table to CSV File
-
-const csv_btn = document.querySelector('#toCSV');
-
-const toCSV = function (table) {
-    // Code For SIMPLE TABLE
-    // const t_rows = table.querySelectorAll('tr');
-    // return [...t_rows].map(row => {
-    //     const cells = row.querySelectorAll('th, td');
-    //     return [...cells].map(cell => cell.textContent.trim()).join(',');
-    // }).join('\n');
-
-    const t_heads = table.querySelectorAll('th'),
-        tbody_rows = table.querySelectorAll('tbody tr');
-
-    const headings = [...t_heads].map(head => {
-        let actual_head = head.textContent.trim().split(' ');
-        return actual_head.splice(0, actual_head.length - 1).join(' ').toLowerCase();
-    }).join(',') + ',' + 'image name';
-
-    const table_data = [...tbody_rows].map(row => {
-        const cells = row.querySelectorAll('td'),
-            img = decodeURIComponent(row.querySelector('img').src),
-            data_without_img = [...cells].map(cell => cell.textContent.replace(/,/g, ".").trim()).join(',');
-
-        return data_without_img + ',' + img;
-    }).join('\n');
-
-    return headings + '\n' + table_data;
-}
-
-csv_btn.onclick = () => {
-    const csv = toCSV(customers_table);
-    downloadFile(csv, 'csv', 'customer orders');
-}
-
-// 6. Converting HTML table to EXCEL File
-
-const excel_btn = document.querySelector('#toEXCEL');
-
+//==========================================================================================================
+// Fonction pour exporter le tableau en Excel
 const toExcel = function (table) {
-    // Code For SIMPLE TABLE
-    // const t_rows = table.querySelectorAll('tr');
-    // return [...t_rows].map(row => {
-    //     const cells = row.querySelectorAll('th, td');
-    //     return [...cells].map(cell => cell.textContent.trim()).join('\t');
-    // }).join('\n');
+    console.log("Exporting...");
 
-    const t_heads = table.querySelectorAll('th'),
-        tbody_rows = table.querySelectorAll('tbody tr');
+    // Récupérer les entêtes du tableau (les <th>)
+    const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim());
 
-    const headings = [...t_heads].map(head => {
-        let actual_head = head.textContent.trim().split(' ');
-        return actual_head.splice(0, actual_head.length - 1).join(' ').toLowerCase();
-    }).join('\t') + '\t' + 'image name';
+    // Créer une copie du tableau sans les boutons (enlever les cellules de la dernière colonne)
+    const rows = Array.from(table.querySelectorAll('tr'));
 
-    const table_data = [...tbody_rows].map(row => {
-        const cells = row.querySelectorAll('td'),
-            img = decodeURIComponent(row.querySelector('img').src),
-            data_without_img = [...cells].map(cell => cell.textContent.trim()).join('\t');
+    // Créer un tableau pour stocker les données sans les boutons
+    const rowsWithoutButtons = rows.map(row => {
+        // Créer une copie de la ligne sans la dernière cellule (celle des boutons)
+        const cells = Array.from(row.querySelectorAll('td'));
+        const cellsWithoutButtons = cells.slice(0, cells.length - 1); // Enlever la dernière cellule (boutons)
+        return cellsWithoutButtons;
+    });
 
-        return data_without_img + '\t' + img;
-    }).join('\n');
+    // Créer un tableau HTML à partir des lignes sans boutons
+    const tempTable = document.createElement('table');
 
-    return headings + '\n' + table_data;
-}
+    // Ajouter les entêtes au tableau temporaire
+    const headerRow = tempTable.insertRow();
+    headers.forEach(header => {
+        const headerCell = headerRow.insertCell();
+        headerCell.textContent = header;
+    });
 
-excel_btn.onclick = () => {
-    const excel = toExcel(customers_table);
-    downloadFile(excel, 'excel');
-}
+    // Ajouter les lignes de données au tableau temporaire
+    rowsWithoutButtons.forEach(rowCells => {
+        const row = tempTable.insertRow();
+        rowCells.forEach(cell => {
+            const newCell = row.insertCell();
+            newCell.textContent = cell.textContent;
+        });
+    });
 
-const downloadFile = function (data, fileType, fileName = '') {
-    const a = document.createElement('a');
-    a.download = fileName;
-    const mime_types = {
-        'json': 'application/json',
-        'csv': 'text/csv',
-        'excel': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    // Convertir le tableau sans boutons en un livre Excel
+    const wb = XLSX.utils.table_to_book(tempTable, { sheet: "Events" });
+    console.log("Livre Excel créé : ", wb);
+
+    // Convertir le livre en binaire pour téléchargement
+    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
+
+    // Créer un fichier binaire et le télécharger
+    const buf = new ArrayBuffer(wbout.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < wbout.length; i++) {
+        view[i] = wbout.charCodeAt(i) & 0xFF;
     }
-    a.href = `
-        data:${mime_types[fileType]};charset=utf-8,${encodeURIComponent(data)}
-    `;
+
+    // Créer un lien de téléchargement pour le fichier Excel
+    const blob = new Blob([buf], { type: "application/octet-stream" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Events_table.xlsx"; // Nom du fichier Excel
     document.body.appendChild(a);
     a.click();
-    a.remove();
-}
+    document.body.removeChild(a);
+};
+
+// Attacher l'événement au bouton
+const excel_btn = document.querySelector('#toEXCEL');
+excel_btn.onclick = () => {
+    const table = document.querySelector('#ev_table'); // Sélectionner le tableau avec l'ID "ev_table"
+    if (table) {
+        toExcel(table); // Convertir et télécharger en Excel
+    } else {
+        alert("Tableau introuvable !");
+    }
+};

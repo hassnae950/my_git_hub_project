@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <main class="table" id="List of Event">
+    <main class="table" id="ev_table">
         <section class="table__header">
-            <h1>Customer's Orders</h1>
+            <h1>List of Events</h1>
             <div class="input-group">
                 <input type="search" placeholder="Search Data...">
                 <img src="images/search.png" alt="">
@@ -29,8 +29,6 @@
                 <div class="export__file-options">
                     <label>Export As &nbsp; &#10140;</label>
                     <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
-                    <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
-                    <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
                     <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
                 </div>
             </div>
@@ -100,6 +98,12 @@ function deleteEvent(id) {
     </main>
  
     <script src="js/event.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
 
 </body>
          </html>
